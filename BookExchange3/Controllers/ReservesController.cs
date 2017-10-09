@@ -72,6 +72,8 @@ namespace BookExchange3.Controllers
                 reserve.ReserveBeginDate = DateTime.Now;
                 reserve.ReserveEndDate = DateTime.Now.AddDays(3);
 
+                
+                
                 int x = reserve.ID;
                 
                 db.Reserves.Add(reserve);

@@ -20,28 +20,35 @@ namespace BookExchange3.Controllers
             return View(db.Books.ToList());
         }
         public ActionResult ListOfBooks(string searchGenre, string searchAuthor, string searchTitle, string searchISBN)
-        {
-            
-
+        {           
             var book = from m in db.Books
                          select m;
-
-            if (!string.IsNullOrEmpty(searchGenre))
+            if(!string.IsNullOrEmpty(searchAuthor) && !string.IsNullOrEmpty(searchGenre) && !string.IsNullOrEmpty(searchTitle) && !string.IsNullOrEmpty(searchISBN))
+            {
+                double searchISBN2;
+                Double.TryParse(searchISBN, out searchISBN2);
+                book = book.Where(s => s.Genre.Contains(searchAuthor) && s.Genre.Contains(searchGenre) && s.Title.Contains(searchTitle) && s.ISBN == searchISBN2);
+            }
+            else if (!string.IsNullOrEmpty(searchAuthor) && !string.IsNullOrEmpty(searchGenre) && !string.IsNullOrEmpty(searchTitle) )
+            {                
+                book = book.Where(s => s.Genre.Contains(searchAuthor) && s.Genre.Contains(searchGenre) && s.Title.Contains(searchTitle));
+            }
+            else if (!string.IsNullOrEmpty(searchGenre))
             {
                 book = book.Where(s => s.Genre.Contains(searchGenre));
             }
 
-            if (!string.IsNullOrEmpty(searchAuthor))
+            else if (!string.IsNullOrEmpty(searchAuthor))
             {
                 book = book.Where(x => x.Author.Contains(searchAuthor));
             }
 
-            if (!string.IsNullOrEmpty(searchTitle))
+            else if (!string.IsNullOrEmpty(searchTitle))
             {
                 book = book.Where(y => y.Title.Contains(searchTitle));
             }
 
-            if (!string.IsNullOrEmpty(searchISBN))
+            else if (!string.IsNullOrEmpty(searchISBN))
             {
                 double searchISBN2;
                 Double.TryParse(searchISBN, out searchISBN2);
