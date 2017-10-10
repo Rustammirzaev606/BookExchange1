@@ -20,7 +20,7 @@ namespace BookExchange3.Models
         [Required]
         
         
-        public double ISBN { get; set; }        
+        public double ISBN { get; set; }
         public bool? Available { get; set; }
         public bool? Taken { get; set; }
 

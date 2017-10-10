@@ -66,14 +66,19 @@ namespace BookExchange3.Controllers
             if (ModelState.IsValid)
             {
                var bookReserved = db.Books.Where(i => i.ID == id).First();
-               
+                var quearyTemp = from m in db.Books
+                                 where m.ID == id
+                                 select m;
+
+                foreach (Books m in quearyTemp)
+                {
+                    m.Available = false;
+                }
 
                 reserve.book = bookReserved;
                 reserve.ReserveBeginDate = DateTime.Now;
                 reserve.ReserveEndDate = DateTime.Now.AddDays(3);
 
-                
-                
                 int x = reserve.ID;
                 
                 db.Reserves.Add(reserve);
