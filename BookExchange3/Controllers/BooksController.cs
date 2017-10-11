@@ -48,7 +48,6 @@ namespace BookExchange3.Controllers
 
 
         // GET: Books
-        [Authorize]
         public ActionResult Index(string searchGenre, string searchAuthor, string searchTitle, string searchISBN)
         {
 
